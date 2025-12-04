@@ -1,0 +1,36 @@
+# COCO 2017 dataset http://cocodataset.org - first 128 training images
+# Train command: python train.py --data coco128.yaml
+# Default dataset location is next to YOLOv5:
+#   /parent_folder
+#     /coco128
+#     /yolov5
+
+# Structure is
+# visible (contains images only)
+#   - train 
+#   - valid
+#   - test 
+# infrared (contains images only)
+#   - train
+#   - valid
+#   - test
+# labels (Contains the same label file for both)
+#   - train
+#   - valid
+#   - test
+
+
+
+# download command/URL (optional)
+download: https://github.com/ultralytics/yolov5/releases/download/v1.0/coco128.zip
+
+# train and val data as 1) directory: path/images/, 2) file: path/images.txt, or 3) list: [path1/images/, path2/images/]
+path: /home/c21/c21ion/edu/exjobb/abb_thesis_rock_bolts/data/RGBmain_yolov5_dataset
+train: /home/c21/c21ion/edu/exjobb/abb_thesis_rock_bolts/data/RGBmain_yolov5_dataset/images/train  # main rgb 
+val: /home/c21/c21ion/edu/exjobb/abb_thesis_rock_bolts/data/RGBmain_yolov5_dataset/images/valid  # main rgb
+
+# number of classes
+nc: 2
+
+# class names
+names: ['rockbolt', 'metal_plate']

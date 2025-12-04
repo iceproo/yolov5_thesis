@@ -125,6 +125,43 @@ def compute_ap(recall, precision):
 
     return ap, mpre, mrec
 
+class ConfusionMatrixStopBelt:
+    """ 
+    Build confsuion matrix for stop belt classification performance. If one detection it means stop belt
+    Only 2 classes, stop or go
+    """
+    def __init__(self, conf=0.5):
+        self.pred_all = []
+        self.gt_all = []
+        self.conf = conf
+
+    def process_batch(self, detections, labels):
+        """Return intersection-over-union (Jaccard index) of boxes.
+
+        Both sets of boxes are expected to be in (x1, y1, x2, y2) format.
+
+        Args:
+            detections (Array[N, 6]): x1, y1, x2, y2, conf, class
+            labels (Array[M, 5]): class, x1, y1, x2, y2
+
+        Returns:
+            None, updates confusion matrix accordingly
+        """
+        detections = detections[detections[:, 4] > self.conf]
+        
+        gt_label = int(labels is not None and len(labels) > 0)
+        self.gt_all.append(gt_label)
+
+        detected = int(detections is not None and len(detections) > 0)
+        self.pred_all.append(detected)
+
+
+    def print(self):
+        from sklearn.metrics import confusion_matrix
+        print("[[TN  FP]\n[FN  TP]]")
+        print(confusion_matrix(self.gt_all, self.pred_all))
+        
+
 
 class ConfusionMatrix:
     """Generates and visualizes a confusion matrix for evaluating object detection classification performance."""
